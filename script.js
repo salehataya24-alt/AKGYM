@@ -2,10 +2,10 @@ const WA="963950078785";
 const gymPhotos=["IMG_3952.webp","IMG_3955(1).webp","IMG_3957(1).webp","IMG_3958(1).webp","IMG_3961(1).webp","IMG_3960(1).webp","IMG_3959(1).webp"];
 const coaches=[
  {name:"HUSSEIN BAKKOR",arName:"حسين بكور",specialty:"Strength & Conditioning",arSpecialty:"القوة واللياقة البدنية",hours:"Daily · 10:00 — 18:00",arHours:"يومياً · 10:00 — 18:00",image:"assets/coaches/coach1.webp"},
- {name:"AHMAD ATKIEDDIEN",arName:"أحمد أتقي الدين",specialty:"Bodybuilding & Hypertrophy",arSpecialty:"كمال الأجسام وتضخيم العضلات",hours:"Daily · 14:00 — 22:00",arHours:"يومياً · 14:00 — 22:00",image:"assets/coaches/coach2.webp"},
+ {name:"AHMAD ATKIEDDIEN",arName:"أحمد تقي الدين",specialty:"Bodybuilding & Hypertrophy",arSpecialty:"كمال الأجسام وتضخيم العضلات",hours:"Daily · 14:00 — 22:00",arHours:"يومياً · 14:00 — 22:00",image:"assets/coaches/coach2.webp"},
  {name:"MOTASIEM MOJAHED",arName:"معتصم مجاهد",specialty:"Fitness & Weight Loss",arSpecialty:"اللياقة وخسارة الوزن",hours:"Daily · 16:00 — 23:00",arHours:"يومياً · 16:00 — 23:00",image:"assets/coaches/coach3.webp"},
  {name:"MANAL ALAHMAD",arName:"منال الأحمد",specialty:"Strength & Conditioning",arSpecialty:"القوة واللياقة البدنية",hours:"Daily · 10:00 — 18:00",arHours:"يومياً · 10:00 — 18:00",image:"assets/coaches/coach4.webp"},
- {name:"MOHAMMED TALLAG",arName:"محمد طلاج",specialty:"Strength & Conditioning",arSpecialty:"القوة واللياقة البدنية",hours:"Daily · 10:00 — 18:00",arHours:"يومياً · 10:00 — 18:00",image:"assets/coaches/coach5.webp"}
+ {name:"MOHAMMED TALLAG",arName:"محمد تلاج",specialty:"Strength & Conditioning",arSpecialty:"القوة واللياقة البدنية",hours:"Daily · 10:00 — 18:00",arHours:"يومياً · 10:00 — 18:00",image:"assets/coaches/coach5.webp"}
 ]
 const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
 let currentPhoto=0, autoTimer=null;
