@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AKGYM — The Body Achieves What The Mind Believes</title>
+  <meta name="description" content="AKGYM — premium fitness club in Damascus, Syria.">
+  <meta name="theme-color" content="#070707">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700&family=Barlow+Condensed:wght@600;700;800;900&family=Noto+Kufi+Arabic:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-noise" aria-hidden="true"></div>
+  <div class="interactive-glow" id="interactiveGlow" aria-hidden="true"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <header class="site-header" id="top">
+    <a class="brand" href="#home" aria-label="AKGYM home"><img src="assets/logo.webp" alt="AKGYM logo" width="76" height="60"></a>
+    <nav class="main-nav" id="mainNav">
+      <a href="#explore" data-i18n="nav.explore">Explore</a>
+      <a href="#offers" data-i18n="nav.offers">Offers</a>
+      <a href="#coaches" data-i18n="nav.coaches">Coaches</a>
+      <a href="#membership" data-i18n="nav.membership">Membership</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="calc-btn" id="calcOpen" type="button" data-i18n="nav.calc">Calorie Calculator</button>
+      <button class="lang-btn" id="langBtn" type="button">العربية</button>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="champ-hero" id="home">
+      <div class="champ-shine" aria-hidden="true"></div>
+      <div class="champ-sweep" aria-hidden="true"></div>
+      <div class="champ-stage" id="champStage" aria-hidden="true">
+        <img class="pose p1" alt="">
+        <img class="pose p2" alt="">
+        <img class="pose p3" alt="">
+      </div>
+      <div class="champ-content">
+        <p class="hero-quote" data-i18n="hero.quote">THE BODY ACHIEVES WHAT THE MIND BELIEVES</p>
+        <h1 class="champ-title">AK GYM</h1>
+        <div class="powered"><span data-i18n="hero.powered">POWERED BY</span><img class="technogym-powered-logo" src="technogym-logo.webp" width="78" height="30" alt="Technogym"></div>
+        <a class="btn btn-primary" href="#explore" data-i18n="hero.cta">EXPLORE THE GYM</a>
+      </div>
+      <a class="scroll-cue" href="#explore" aria-label="Scroll to explore"><span></span></a>
+    </section>
+
+    <section class="section explore" id="explore">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-i18n="explore.eyebrow">THE FACILITY</span>
+        <h2 data-i18n="explore.title">EXPLORE THE GYM</h2>
+        <p data-i18n="explore.text">Step inside AKGYM. Explore the training floor, cardio zone, changing rooms and every detail of the club.</p>
+      </div>
+      <div class="gallery reveal">
+        <div class="gallery-stage" id="galleryStage">
+          <img id="galleryImage" src="assets/gym/IMG_3952.webp" alt="AKGYM interior">
+          <div class="gallery-shade"></div>
+          <div class="gallery-meta"><span>AKGYM / <b id="photoNumber">01</b></span><span>DAMASCUS</span></div>
+          <button class="gallery-arrow prev" id="prevPhoto" type="button" aria-label="Previous photo">←</button>
+          <button class="gallery-arrow next" id="nextPhoto" type="button" aria-label="Next photo">→</button>
+        </div>
+        <div class="gallery-bottom">
+          <div class="gallery-thumbs" id="thumbs"></div>
+          <div class="gallery-progress"><span id="galleryProgress"></span></div>
+        </div>
+      </div>
+      <div class="hours reveal" id="hoursBox"></div>
+    </section>
+
+    <section class="section offers" id="offers">
+      <div class="section-head reveal"><span class="eyebrow" data-i18n="offers.eyebrow">CURRENT OFFERS</span><h2 data-i18n="offers.title">CURRENT OFFERS</h2></div>
+      <div class="offers-list" id="offersList"></div>
+    </section>
+
+    <section class="section coaches" id="coaches">
+      <div class="section-head reveal"><span class="eyebrow" data-i18n="coaches.eyebrow">THE TEAM</span><h2 data-i18n="coaches.title">OUR COACHES</h2><p data-i18n="coaches.text">Meet the team and contact your coach directly through AKGYM.</p></div>
+      <div class="coach-cert reveal"><span class="cert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5l8-3z"/><path d="M8.5 12l2.4 2.4L15.5 9.8"/></svg></span><p data-i18n="coaches.cert">All our coaches hold official certified credentials accredited by the Sports Federation.</p></div>
+      <div class="coach-filters reveal" id="coachFilters"></div>
+      <div class="coach-grid" id="coachGrid"></div>
+      <div class="coach-more"><button class="btn btn-outline" id="coachToggle" type="button" hidden></button></div>
+    </section>
+
+    <section class="section membership" id="membership">
+      <div class="membership-layout">
+        <div class="membership-copy reveal"><span class="eyebrow" data-i18n="membership.eyebrow">JOIN AKGYM</span><h2 data-i18n="membership.title">MEMBERSHIP</h2><p data-i18n="membership.text">Choose your membership duration. The monthly price is currently 4,000 SYP.</p><div class="membership-rule"></div><span class="micro" data-i18n="membership.note">Flexible duration · Direct registration via WhatsApp</span></div>
+        <div class="price-card reveal magnetic-card">
+          <span class="price-label" id="priceCurrency">S.P.</span><div class="price"><span id="priceTotal">4,000</span></div>
+          <label for="months" data-i18n="membership.duration">MEMBERSHIP DURATION</label>
+          <div class="month-control"><button type="button" id="minus" aria-label="Decrease months">−</button><input id="months" type="number" min="1" max="24" value="1" inputmode="numeric"><button type="button" id="plus" aria-label="Increase months">+</button></div>
+          <div class="duration-label"><span id="durationText">1 month</span></div>
+          <button class="btn btn-primary full magnetic" id="joinOpen" type="button" data-i18n="membership.join">JOIN NOW</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="section-head reveal"><span class="eyebrow" data-i18n="contact.eyebrow">FIND US</span><h2 data-i18n="contact.title">CONTACT US</h2></div>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <div class="contact-item"><a class="c-ico loc" href="https://www.google.com/maps/search/?api=1&query=AK+GYM%2C+Barniya%2C+Damascus%2C+Syria" target="_blank" rel="noopener" aria-label="Location"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></a><div><strong data-i18n="contact.locationTitle">LOCATION</strong><p data-i18n="contact.location">Damascus, Rukn Al-Din, Barniya — near Barniya Street.</p></div></div>
+          <div class="contact-item"><a class="c-ico wa" href="https://wa.me/963950078785" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l1.9-5.4A8.5 8.5 0 1 1 21 11.5z"/><path d="M9 8.2c.3 2.6 3.4 5.9 6.6 6.6l1.3-1.5-2.3-1.3-1 .8c-1-.5-1.9-1.4-2.4-2.4l.8-1-1.3-2.3L9 8.2z"/></svg></a><div><strong data-i18n="contact.whatsappTitle">WHATSAPP</strong><p><a href="https://wa.me/963950078785" target="_blank" rel="noopener">+963 950 078 785</a></p></div></div>
+          <div class="contact-item"><a class="c-ico ig" href="https://www.instagram.com/arabikatbi25?stkn=MTJ4MzA2eHpoOTFuag==" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r=".9" fill="currentColor"/></svg></a><div><strong data-i18n="contact.instagramTitle">INSTAGRAM</strong><p><a href="https://www.instagram.com/arabikatbi25?stkn=MTJ4MzA2eHpoOTFuag==" target="_blank" rel="noopener">@arabikatbi25</a></p></div></div>
+          <div class="contact-item"><a class="c-ico fb" href="https://www.facebook.com/share/1dqhMQ8tB6/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a><div><strong data-i18n="contact.facebookTitle">FACEBOOK</strong><p><a href="https://www.facebook.com/share/1dqhMQ8tB6/?mibextid=wwXIfr" target="_blank" rel="noopener">AKGYM Facebook</a></p></div></div>
+          <div class="contact-item"><a class="c-ico cp" href="tel:+963962384130" aria-label="Complaints"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></a><div><strong data-i18n="contact.complaintsTitle">COMPLAINTS</strong><p><a href="tel:+963962384130">+963 962 384 130</a></p></div></div>
+        </div>
+        <div class="map-card reveal"><iframe title="AKGYM location map" src="https://www.google.com/maps?q=AK%20GYM%2C%20Barniya%2C%20Damascus%2C%20Syria&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=AK+GYM%2C+Barniya%2C+Damascus%2C+Syria" target="_blank" rel="noopener" data-i18n="contact.map">OPEN IN GOOGLE MAPS →</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-top"><img src="assets/logo.webp" alt="AKGYM"><div class="footer-links"><button type="button" data-info="privacy" data-i18n="footer.privacy">Privacy Policy</button><button type="button" data-info="terms" data-i18n="footer.terms">Terms & Conditions</button></div></div>
+    <div class="footer-bottom"><p>© <span id="year"></span> AKGYM. <span data-i18n="footer.rights">All rights reserved.</span></p><span>POWERED BY AKGYM</span></div>
+  </footer>
+
+  <div class="modal" id="offerModal" aria-hidden="true"><div class="modal-box"><button class="close" data-close type="button" aria-label="Close"><span class="close-x">×</span><span class="close-text">CLOSE / إغلاق</span></button><span class="eyebrow" data-i18n="offerModal.eyebrow">SPECIAL OFFER</span><h3 data-i18n="offerModal.title">10% OFF FOR UNIVERSITY STUDENTS</h3><p data-i18n="offerModal.text">10% discount for students of the following universities:</p><button class="select-university" id="uniSelect" type="button"><span data-i18n="offerModal.select">SELECT UNIVERSITY</span><b>⌄</b></button><div class="uni-list" id="uniList"><button data-uni="SPU" type="button">SPU</button><button data-uni="AIU" type="button">AIU</button><button data-uni="IUST" type="button">IUST</button><button data-uni="YPU" type="button">YPU</button><button data-uni="QPU" type="button">QPU</button></div><div class="selected-uni" id="selectedUni"></div><button class="btn btn-primary full" id="useOffer" disabled type="button" data-i18n="offerModal.use">USE THIS OFFER</button></div></div>
+
+  <div class="modal" id="coachModal" aria-hidden="true"><div class="modal-box coach-modal"><button class="close" data-close type="button" aria-label="Close"><span class="close-x">×</span><span class="close-text">CLOSE / إغلاق</span></button><img id="coachModalImg" src="" alt=""><div><span class="eyebrow" data-i18n="coachModal.label">COACH</span><h3 id="coachModalName"></h3><p id="coachModalSpecialty"></p><p id="coachModalHours"></p><a id="coachWhatsApp" class="btn btn-primary full" target="_blank" rel="noopener" data-i18n="coachModal.contact">CONTACT COACH</a></div></div></div>
+
+  <div class="modal" id="joinModal" aria-hidden="true"><div class="modal-box"><button class="close" data-close type="button" aria-label="Close"><span class="close-x">×</span><span class="close-text">CLOSE / إغلاق</span></button><span class="eyebrow" data-i18n="joinModal.eyebrow">MEMBERSHIP REQUEST</span><h3 data-i18n="joinModal.title">JOIN AKGYM</h3><form id="joinForm"><label><span data-i18n="joinModal.name">FULL NAME</span><input required id="fullName" type="text"></label><label><span data-i18n="joinModal.phone">PHONE NUMBER</span><input required id="memberPhone" type="tel"></label><label><span data-i18n="joinModal.duration">MEMBERSHIP DURATION</span><input id="formDuration" type="text" readonly></label><button class="btn btn-primary full" type="submit" data-i18n="joinModal.send">SEND REQUEST ON WHATSAPP</button></form></div></div>
+
+  <div class="modal" id="infoModal" aria-hidden="true"><div class="modal-box"><button class="close" data-close type="button" aria-label="Close"><span class="close-x">×</span><span class="close-text">CLOSE / إغلاق</span></button><span class="eyebrow">AKGYM</span><h3 id="infoTitle"></h3><p id="infoText"></p></div></div>
+  <div class="modal" id="calcModal" aria-hidden="true"><div class="modal-box calc-box"><button class="close" data-close type="button" aria-label="Close"><span class="close-x">×</span><span class="close-text">CLOSE / إغلاق</span></button><span class="eyebrow" data-i18n="calc.eyebrow">CALORIE CALCULATOR</span><h3 data-i18n="calc.title">YOUR CALORIES</h3>
+    <form id="calcForm">
+      <label><span data-i18n="calc.gender">GENDER</span><div class="seg" id="calcGender"><button type="button" class="on" data-g="m" data-i18n="calc.male">MALE</button><button type="button" data-g="f" data-i18n="calc.female">FEMALE</button></div></label>
+      <div class="calc-grid">
+        <label><span data-i18n="calc.height">HEIGHT (CM)</span><input id="calcH" type="number" min="120" max="230" required inputmode="numeric" placeholder="175"></label>
+        <label><span data-i18n="calc.weight">WEIGHT (KG)</span><input id="calcW" type="number" min="30" max="250" step="0.1" required inputmode="decimal" placeholder="75"></label>
+        <label><span data-i18n="calc.age">AGE</span><input id="calcA" type="number" min="14" max="90" required inputmode="numeric" placeholder="25"></label>
+      </div>
+      <label><span data-i18n="calc.days">WORKOUTS PER WEEK</span><div class="range-row"><input class="calc-range" id="calcDays" type="range" min="0" max="7" value="3"><b id="calcDaysVal">3</b></div></label>
+      <button class="btn btn-primary full" type="submit" data-i18n="calc.go">CALCULATE</button>
+    </form>
+    <div class="calc-result" id="calcResult" hidden>
+      <div class="rcard m"><span data-i18n="calc.maintain">MAINTENANCE</span><b id="rMaintain">0</b><small data-i18n="calc.maintainSub">to keep your weight</small></div>
+      <div class="rcard c"><span data-i18n="calc.cut">BURN / CUT</span><b id="rCut">0</b><small data-i18n="calc.cutSub">to lose fat</small></div>
+      <div class="rcard b"><span data-i18n="calc.bulk">BULK</span><b id="rBulk">0</b><small data-i18n="calc.bulkSub">to build muscle</small></div>
+      <p class="calc-unit" data-i18n="calc.unit">kcal / day</p>
+      <p class="calc-note" data-i18n="calc.note"></p>
+    </div>
+  </div></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
