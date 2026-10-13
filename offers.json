@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-13T00:00:00Z",
+  "offers": [
+    {
+      "id": "student-offer",
+      "active": true,
+      "tag": "STUDENT OFFER",
+      "arTag": "عرض الطلاب",
+      "num": "10",
+      "unit": "%",
+      "title": "10% OFF FOR UNIVERSITY STUDENTS",
+      "arTitle": "خصم 10% لطلاب الجامعات",
+      "desc": "Choose your university to verify the offer.",
+      "arDesc": "اختر جامعتك للاستفادة من العرض.",
+      "btn": "VIEW OFFER",
+      "arBtn": "عرض التفاصيل",
+      "type": "uni"
+    }
+  ]
+}

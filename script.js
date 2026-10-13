@@ -37,19 +37,63 @@ function renderHours(){
 setInterval(()=>{try{renderHours()}catch(e){}},60000);
 
 
-/* ===== العروض: عدّل أو أضف أو احذف عروض من هون بس ===== */
-const offers=[
- {tag:"STUDENT OFFER",arTag:"عرض الطلاب",num:"10",unit:"%",title:"10% OFF FOR UNIVERSITY STUDENTS",arTitle:"خصم 10% لطلاب الجامعات",desc:"Choose your university to verify the offer.",arDesc:"اختر جامعتك للاستفادة من العرض.",btn:"VIEW OFFER",arBtn:"عرض التفاصيل",type:"uni"}
- /* مثال عرض جديد (فك التعليق وضيف فاصلة قبله):
- ,{tag:"NEW",arTag:"جديد",num:"3",unit:"+1",title:"3 MONTHS + 1 FREE",arTitle:"3 أشهر + شهر مجاني",desc:"Limited time.",arDesc:"لفترة محدودة.",btn:"ASK ON WHATSAPP",arBtn:"اسأل عبر واتساب",type:"wa",msg:"مرحباً AKGYM، أنا مهتم بالعرض."}
- */
+/* ===== عروض الموقع: تُقرأ من offers.json ويمكن ربطها لاحقاً بواجهة نشر آمنة ===== */
+const defaultOffers=[
+ {id:"student-offer",active:true,tag:"STUDENT OFFER",arTag:"عرض الطلاب",num:"10",unit:"%",title:"10% OFF FOR UNIVERSITY STUDENTS",arTitle:"خصم 10% لطلاب الجامعات",desc:"Choose your university to verify the offer.",arDesc:"اختر جامعتك للاستفادة من العرض.",btn:"VIEW OFFER",arBtn:"عرض التفاصيل",type:"uni"}
 ];
+let offers=[...defaultOffers];
+const safeText=value=>String(value??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+function isOfferCurrent(o){
+  if(o.active===false)return false;
+  const now=new Date();
+  if(o.startDate && !Number.isNaN(Date.parse(o.startDate)) && now < new Date(o.startDate+"T00:00:00")) return false;
+  if(o.endDate && !Number.isNaN(Date.parse(o.endDate)) && now > new Date(o.endDate+"T23:59:59")) return false;
+  return true;
+}
+async function loadPublicOffers(){
+  try{
+    let response=await fetch("/api/offers",{cache:"no-store"});
+    if(!response.ok && (location.hostname === "localhost" || location.hostname === "127.0.0.1")) response=await fetch("./offers.json",{cache:"no-store"});
+    if(!response.ok) throw new Error("Offers feed unavailable");
+    const data=await response.json();
+    if(!Array.isArray(data.offers)) throw new Error("Invalid offers feed");
+    offers=data.offers.filter(o=>o && typeof o==="object" && typeof o.id==="string" && typeof o.num!=="undefined" && o.title && o.arTitle && isOfferCurrent(o));
+  }catch(error){
+    console.warn("Using built-in AKGYM offers fallback.",error);
+    offers=defaultOffers.filter(isOfferCurrent);
+  }
+  renderOffers();
+}
 function renderOffers(){
-  const box=$("#offersList");if(!box)return;const ar=lang==='ar';box.innerHTML="";
-  offers.forEach(o=>{
+  const box=$("#offersList");if(!box)return;const ar=lang==='ar';box.replaceChildren();
+  const visible=offers.filter(isOfferCurrent);
+  if(!visible.length){
+    const empty=document.createElement("p");
+    empty.className="offers-empty";
+    empty.textContent=ar?"لا توجد عروض متاحة حالياً.":"No current offers right now.";
+    box.appendChild(empty);return;
+  }
+  visible.forEach(o=>{
     const a=document.createElement('article');a.className='offer-card reveal';
-    a.innerHTML=`<div class="offer-number">${o.num}<sup>${o.unit||''}</sup></div><div class="offer-copy"><span class="offer-tag">${ar?o.arTag:o.tag}</span><h3>${ar?o.arTitle:o.title}</h3><p>${ar?o.arDesc:o.desc}</p></div><button class="btn btn-outline" type="button">${ar?o.arBtn:o.btn}</button>`;
-    a.querySelector('button').onclick=()=>o.type==='uni'?openModal('offerModal'):window.open(`https://wa.me/${WA}?text=${encodeURIComponent(o.msg||'مرحباً AKGYM')}`,'_blank');
+    a.innerHTML=`<div class="offer-number">${safeText(o.num)}<sup>${safeText(o.unit||'')}</sup></div><div class="offer-copy"><span class="offer-tag">${safeText(ar?o.arTag:o.tag)}</span><h3>${safeText(ar?o.arTitle:o.title)}</h3><p>${safeText(ar?o.arDesc:o.desc)}</p></div><button class="btn btn-outline" type="button">${safeText(ar?o.arBtn:o.btn)}</button>`;
+    a.querySelector('button').onclick=()=>{
+      if(o.type==='uni' || o.type==='details'){
+        const modal=$('#offerModal'),arNow=lang==='ar';
+        const title=modal.querySelector('h3'),desc=modal.querySelector('p'),uniSelect=$('#uniSelect'),uniList=$('#uniList'),selected=$('#selectedUni'),use=$('#useOffer');
+        title.textContent=arNow?(o.arTitle||o.title):(o.title||o.arTitle);
+        desc.textContent=arNow?(o.arDesc||o.desc||''):(o.desc||o.arDesc||'');
+        const student=o.type==='uni';
+        uniSelect.style.display=student?'':'none';uniList.style.display=student?'':'none';selected.style.display=student?'':'none';use.style.display=student?'':'none';
+        if(student){
+          const labels=translations[lang];
+          modal.querySelector('.eyebrow').textContent=labels['offerModal.eyebrow'];
+          uniSelect.querySelector('span').textContent=labels['offerModal.select'];
+          use.textContent=labels['offerModal.use'];
+          $('#selectedUni').textContent=''; $('#useOffer').disabled=true;
+        }
+        openModal('offerModal');
+      }else window.open(`https://wa.me/${WA}?text=${encodeURIComponent(o.msg||'مرحباً AKGYM')}`,'_blank','noopener,noreferrer');
+    };
     box.appendChild(a);if(window.__akRevealObserver)window.__akRevealObserver.observe(a);
   });
 }
@@ -90,8 +134,14 @@ function arDur(m){return m===1?'شهر واحد':m===2?'شهران':m<=10?`${m} 
 const price=4000,months=$("#months"),total=$("#priceTotal"),duration=$("#durationText");function updatePrice(){let m=Math.min(24,Math.max(1,parseInt(months.value)||1));months.value=m;total.textContent=(price*m).toLocaleString('en-US');duration.textContent=lang==='ar'?(m===1?'شهر واحد':`${m} أشهر`):(m===1?'1 month':`${m} months`);$("#formDuration").value=duration.textContent;const cur=$("#priceCurrency");if(cur)cur.textContent=lang==='ar'?'ل.س':'S.P.'}$("#minus").onclick=()=>{months.value=+months.value-1;updatePrice()};$("#plus").onclick=()=>{months.value=+months.value+1;updatePrice()};months.oninput=updatePrice;$("#joinOpen").onclick=()=>openModal('joinModal');$("#joinForm").onsubmit=e=>{e.preventDefault();const name=$("#fullName").value.trim(),phone=$("#memberPhone").value.trim(),dur=$("#formDuration").value;window.open(`https://wa.me/${WA}?text=${encodeURIComponent(`مرحباً AKGYM، أرغب بالاشتراك في النادي.\nالاسم الكامل: ${name}\nرقم الهاتف: ${phone}\nمدة الاشتراك: ${arDur(+months.value||1)}\nأرغب بإكمال التسجيل مع النادي.`)}`,'_blank');closeModals()};
 
 const translations={ar:{"nav.explore":"استكشف","nav.offers":"العروض","nav.coaches":"الكوتشات","nav.contact":"تواصل معنا","nav.membership":"الاشتراك","hero.quote":"الجسم يحقق ما يؤمن به العقل","hero.powered":"بدعم من","hero.cta":"استكشف النادي","explore.eyebrow":"النادي","explore.title":"استكشف النادي","explore.text":"ادخل إلى AKGYM واستكشف صالة التدريب ومنطقة الكارديو وغرف تبديل الملابس وكل تفاصيل النادي.","offers.eyebrow":"العروض الحالية","offers.title":"العروض الحالية","offers.tag":"عرض الطلاب","offers.heading":"خصم 10% لطلاب الجامعات","offers.description":"اختر جامعتك للاستفادة من العرض.","offers.open":"عرض التفاصيل","coaches.eyebrow":"الفريق","coaches.title":"الكوتشات","coaches.text":"تعرف على فريق الكوتشات وتواصل مع الكوتش مباشرة عبر AKGYM.","membership.eyebrow":"انضم إلى AKGYM","membership.title":"الاشتراك","membership.text":"اختر مدة اشتراكك. سعر الشهر الحالي هو 4,000 ليرة سورية.","membership.note":"مدة مرنة · التسجيل مباشرة عبر واتساب","membership.duration":"مدة الاشتراك","membership.join":"اشترك الآن","contact.eyebrow":"موقعنا","contact.title":"تواصل معنا","contact.locationTitle":"الموقع","contact.location":"دمشق، ركن الدين، قرب شارع برنية.","contact.whatsappTitle":"واتساب","contact.instagramTitle":"إنستغرام","contact.facebookTitle":"فيسبوك","contact.complaintsTitle":"الشكاوى","contact.map":"افتح في خرائط Google ←","footer.home":"الرئيسية","footer.contact":"تواصل معنا","footer.privacy":"سياسة الخصوصية","footer.terms":"الشروط والأحكام","footer.rights":"جميع الحقوق محفوظة.","offerModal.eyebrow":"عرض خاص","offerModal.title":"خصم 10% لطلاب الجامعات","offerModal.text":"حسم 10 بالمئة لطلاب الجامعات التالية:","offerModal.select":"اختر الجامعة","offerModal.use":"استفد من العرض","coachModal.label":"كوتش","coachModal.contact":"تواصل مع الكوتش","joinModal.eyebrow":"طلب اشتراك","joinModal.title":"الانضمام إلى AKGYM","joinModal.name":"الاسم الكامل","joinModal.phone":"رقم الهاتف","joinModal.duration":"مدة الاشتراك","joinModal.send":"إرسال الطلب عبر واتساب"},en:{"nav.explore":"Explore","nav.offers":"Offers","nav.coaches":"Coaches","nav.contact":"Contact","nav.membership":"Membership","hero.quote":"THE BODY ACHIEVES WHAT THE MIND BELIEVES","hero.powered":"POWERED BY","hero.cta":"EXPLORE THE GYM","explore.eyebrow":"THE FACILITY","explore.title":"EXPLORE THE GYM","explore.text":"Step inside AKGYM. Explore the training floor, cardio zone, changing rooms and every detail of the club.","offers.eyebrow":"CURRENT OFFERS","offers.title":"CURRENT OFFERS","offers.tag":"STUDENT OFFER","offers.heading":"10% OFF FOR UNIVERSITY STUDENTS","offers.description":"Choose your university to verify the offer.","offers.open":"VIEW OFFER","coaches.eyebrow":"THE TEAM","coaches.title":"OUR COACHES","coaches.text":"Meet the team and contact your coach directly through AKGYM.","membership.eyebrow":"JOIN AKGYM","membership.title":"MEMBERSHIP","membership.text":"Choose your membership duration. The monthly price is currently 4,000 SYP.","membership.note":"Flexible duration · Direct registration via WhatsApp","membership.duration":"MEMBERSHIP DURATION","membership.join":"JOIN NOW","contact.eyebrow":"FIND US","contact.title":"CONTACT US","contact.locationTitle":"LOCATION","contact.location":"Damascus, Rukn Al-Din, near Barniya Street.","contact.whatsappTitle":"WHATSAPP","contact.instagramTitle":"INSTAGRAM","contact.facebookTitle":"FACEBOOK","contact.complaintsTitle":"COMPLAINTS","contact.map":"OPEN IN GOOGLE MAPS →","footer.home":"Home","footer.contact":"Contact","footer.privacy":"Privacy Policy","footer.terms":"Terms & Conditions","footer.rights":"All rights reserved.","offerModal.eyebrow":"SPECIAL OFFER","offerModal.title":"10% OFF FOR UNIVERSITY STUDENTS","offerModal.text":"10% discount for students of the following universities:","offerModal.select":"SELECT UNIVERSITY","offerModal.use":"USE THIS OFFER","coachModal.label":"COACH","coachModal.contact":"CONTACT COACH","joinModal.eyebrow":"MEMBERSHIP REQUEST","joinModal.title":"JOIN AKGYM","joinModal.name":"FULL NAME","joinModal.phone":"PHONE NUMBER","joinModal.duration":"MEMBERSHIP DURATION","joinModal.send":"SEND REQUEST ON WHATSAPP"}};
+Object.assign(translations.ar,{
+ "nav.myCard":"بطاقتي","card.eyebrow":"بوابة المشتركين","card.title":"بطاقتي","card.intro":"ادخل رقم العضوية ورقم الموبايل المسجّل لدى النادي لعرض بطاقتك وبيانات الزيارات.","card.memberCode":"رقم العضوية","card.phone":"رقم الموبايل","card.signIn":"عرض بطاقتي","card.help":"استخدم رقم الموبايل المسجّل لدى النادي. إذا لم يعمل، راجع الاستقبال.","card.digital":"بطاقة عضوية إلكترونية","card.memberName":"اسم المشترك","card.total":"إجمالي الجلسات","card.used":"الجلسات المستهلكة","card.remaining":"الجلسات المتبقية","card.plan":"الاشتراك","card.expiry":"تاريخ الانتهاء","card.signOut":"تسجيل الخروج","card.close":"إغلاق ✕","card.loading":"عم نتحقق من بياناتك…","card.invalid":"تعذر التحقق. تأكد من رقم العضوية ورقم الموبايل المسجّل.","card.unavailable":"خدمة البطاقة الإلكترونية غير مفعّلة حالياً. يرجى مراجعة الاستقبال.","card.active":"فعّال","card.expired":"منتهي","card.future":"لم يبدأ بعد","card.unknown":"غير متاح"
+});
+Object.assign(translations.en,{
+ "nav.myCard":"My Card","card.eyebrow":"MEMBER PORTAL","card.title":"MY CARD","card.intro":"Enter your member code and the mobile number registered with the club to view your card and visit totals.","card.memberCode":"MEMBER CODE","card.phone":"MOBILE NUMBER","card.signIn":"VIEW MY CARD","card.help":"Use the mobile number registered with the club. If it does not work, contact reception.","card.digital":"DIGITAL MEMBER CARD","card.memberName":"MEMBER NAME","card.total":"TOTAL VISITS","card.used":"VISITS USED","card.remaining":"VISITS LEFT","card.plan":"MEMBERSHIP","card.expiry":"EXPIRES","card.signOut":"SIGN OUT","card.close":"CLOSE ✕","card.loading":"Checking your membership…","card.invalid":"Verification failed. Check your member code and registered mobile number.","card.unavailable":"The online card service is not activated yet. Please contact reception.","card.active":"Active","card.expired":"Expired","card.future":"Not started","card.unknown":"Unavailable"
+});
 let lang='en';
-function applyLanguage(){document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.body.classList.toggle('rtl',lang==='ar');$("#langBtn").textContent=lang==='ar'?'English':'العربية';$$('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(translations[lang][k])el.textContent=translations[lang][k]});const nav=$('#mainNav');if(nav){nav.querySelectorAll('a').forEach(a=>{a.style.animation='none'});void nav.offsetWidth;if(nav.querySelectorAll('a').length)nav.querySelectorAll('a').forEach(a=>{a.style.animation=''});}updatePrice()}
+function applyLanguage(){document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.body.classList.toggle('rtl',lang==='ar');$("#langBtn").textContent=lang==='ar'?'English':'العربية';$$('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(translations[lang][k])el.textContent=translations[lang][k]});const nav=$('#mainNav');if(nav){nav.querySelectorAll('a').forEach(a=>{a.style.animation='none'});void nav.offsetWidth;if(nav.querySelectorAll('a').length)nav.querySelectorAll('a').forEach(a=>{a.style.animation=''});}updatePrice();if(window.__akCardRefreshLanguage)window.__akCardRefreshLanguage()}
 $("#langBtn").onclick=()=>{lang=lang==='en'?'ar':'en';applyLanguage()};$("#menuBtn").onclick=()=>$("#mainNav").classList.toggle('open');$$('#mainNav a').forEach(a=>a.onclick=()=>$("#mainNav").classList.remove('open'));
 
 $$('[data-info]').forEach(b=>b.onclick=()=>{const ar=lang==='ar';$("#infoTitle").textContent=b.dataset.info==='privacy'?(ar?'سياسة الخصوصية':'Privacy Policy'):(ar?'الشروط والأحكام':'Terms & Conditions');$("#infoText").textContent=b.dataset.info==='privacy'?(ar?'نحترم خصوصية زوار AKGYM ولا نجمع بيانات عبر الموقع إلا عندما يرسل المستخدم طلباً بنفسه عبر واتساب.':'AKGYM respects visitor privacy. This front-end website does not store submitted membership data on a server; requests are sent directly to WhatsApp when the user chooses to submit them.'):(ar?'المعلومات والأسعار والعروض قابلة للتحديث من إدارة النادي. إرسال طلب عبر واتساب لا يعني تأكيد العضوية حتى يتم التواصل مع النادي.':'Membership prices, offers and information may be updated by AKGYM. A WhatsApp request is not a confirmed membership until the club contacts the customer.');openModal('infoModal')});
@@ -164,25 +214,6 @@ function loadCropped(src){
 translations.ar["coaches.cert"]="جميع مدربينا حاصلون على شهادات رسمية معتمدة من الاتحاد الرياضي.";
 translations.en["coaches.cert"]="All our coaches hold official certified credentials accredited by the Sports Federation.";
 
-/* ===== حاسبة السعرات ===== */
-Object.assign(translations.ar,{"nav.calc":"احسب سعراتك الآن","calc.eyebrow":"حاسبة السعرات","calc.title":"احسب سعراتك","calc.gender":"الجنس","calc.male":"ذكر","calc.female":"أنثى","calc.height":"الطول (سم)","calc.weight":"الوزن (كغ)","calc.age":"العمر","calc.days":"عدد مرات التمرين بالأسبوع","calc.go":"احسب","calc.maintain":"سعرات الثبات","calc.cut":"سعرات الحرق","calc.bulk":"سعرات التضخيم","calc.cutSub":"لخسارة الدهون","calc.bulkSub":"لبناء العضلات","calc.maintainSub":"للحفاظ على وزنك","calc.unit":"سعرة / يوم","calc.note":"هي تقديرات تقريبية بمعادلة Mifflin-St Jeor وتختلف من شخص لآخر. استشر مختصاً للحصول على خطة دقيقة."});
-Object.assign(translations.en,{"nav.calc":"Calorie Calculator","calc.eyebrow":"CALORIE CALCULATOR","calc.title":"YOUR CALORIES","calc.gender":"GENDER","calc.male":"MALE","calc.female":"FEMALE","calc.height":"HEIGHT (CM)","calc.weight":"WEIGHT (KG)","calc.age":"AGE","calc.days":"WORKOUTS PER WEEK","calc.go":"CALCULATE","calc.maintain":"MAINTENANCE","calc.cut":"BURN / CUT","calc.bulk":"BULK","calc.cutSub":"to lose fat","calc.bulkSub":"to build muscle","calc.maintainSub":"to keep your weight","calc.unit":"kcal / day","calc.note":"Approximate estimates using the Mifflin-St Jeor formula; results vary between people. Ask a professional for a precise plan."});
-let calcG='m';
-$$('#calcGender button').forEach(b=>b.onclick=()=>{calcG=b.dataset.g;$$('#calcGender button').forEach(x=>x.classList.toggle('on',x===b))});
-const calcDays=$("#calcDays");calcDays.oninput=()=>$("#calcDaysVal").textContent=calcDays.value;
-$("#calcOpen").onclick=()=>{$("#mainNav").classList.remove('open');openModal('calcModal')};
-function countTo(el,v){const t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/900),e=1-Math.pow(1-k,3);el.textContent=Math.round(v*e).toLocaleString('en-US');if(k<1)requestAnimationFrame(f)})(t0)}
-$("#calcForm").onsubmit=e=>{
-  e.preventDefault();
-  const h=+$("#calcH").value,w=+$("#calcW").value,a=+$("#calcA").value,d=+calcDays.value;
-  const bmr=10*w+6.25*h-5*a+(calcG==='m'?5:-161);
-  const f=d===0?1.2:d<=2?1.375:d<=4?1.55:d<=6?1.725:1.9;
-  const r10=x=>Math.round(x/10)*10,tdee=bmr*f;
-  const cut=Math.max(tdee*.8,calcG==='m'?1500:1200),bulk=tdee*1.12;
-  const res=$("#calcResult");res.hidden=false;
-  countTo($("#rMaintain"),r10(tdee));countTo($("#rCut"),r10(cut));countTo($("#rBulk"),r10(bulk));
-  res.scrollIntoView({behavior:'smooth',block:'nearest'});
-};
 const COACH_LIMIT=3;
 let coachesOpen=false;
 const coachToggle=$("#coachToggle");
@@ -197,6 +228,7 @@ coachToggle.onclick=()=>{coachesOpen=!coachesOpen;updateCoachToggle();if(!coache
 const _applyLang=applyLanguage;
 applyLanguage=function(){_applyLang();renderHours();renderOffers();renderCoaches();updateCoachToggle()};
 applyLanguage();
+loadPublicOffers();
 
 
 /* ===== Interactive electric-blue glow ===== */
@@ -221,4 +253,53 @@ applyLanguage();
   window.addEventListener('touchmove', e => {
     if(e.touches[0]) move(e.touches[0].clientX,e.touches[0].clientY);
   }, {passive:true});
+})();
+
+
+/* ===== Private member card portal. Real member data is never hardcoded in the public site. ===== */
+(function setupMemberCard(){
+  const form=$("#memberCardForm"); if(!form)return;
+  const msg=$("#cardMessage"), card=$("#digitalMemberCard"), loginBtn=$("#cardLoginBtn");
+  const modal = $("#my-card"), closeModal = $("#cardModalClose"), cardTrigger = $(".my-card-nav");
+  if (!modal || !cardTrigger) return;
+  const openModal = () => {
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => { if (!form.hidden) $("#cardMemberCode")?.focus(); }, 30);
+  };
+  const closeModalFn=()=>{modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';if(cardTrigger)cardTrigger.focus()};
+  if(cardTrigger)cardTrigger.addEventListener('click',e=>{e.preventDefault();openModal()});
+  if(closeModal)closeModal.addEventListener('click',closeModalFn);
+  modal.addEventListener('click',e=>{if(e.target===modal)closeModalFn()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeModalFn()});
+  const t=k=>translations[lang][k]||translations.en[k]||k;
+  const setMessage=(key,success=false)=>{msg.textContent=t(key);msg.classList.toggle('success',success)};
+  const formatDate=value=>{if(!value)return t('card.unknown');const d=new Date(`${String(value).slice(0,10)}T12:00:00`);if(Number.isNaN(d.getTime()))return String(value);return new Intl.DateTimeFormat(lang==='ar'?'ar-SY':'en-GB',{year:'numeric',month:'short',day:'numeric'}).format(d)};
+  let currentCardStatus='unknown', currentCardExpiry='';
+  window.__akCardRefreshLanguage=()=>{if(!card.hidden){$("#cardStatus").textContent=t(currentCardStatus==='active'?'card.active':currentCardStatus==='expired'?'card.expired':currentCardStatus==='future'?'card.future':'card.unknown');$("#cardExpiry").textContent=formatDate(currentCardExpiry);}};
+  const hideCard=()=>{card.hidden=true;form.hidden=false;form.reset();msg.textContent='';msg.classList.remove('success');if(window.JsBarcode)try{JsBarcode('#memberBarcode','',{displayValue:false})}catch(e){}};
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const memberCode=$("#cardMemberCode").value.trim(),phone=$("#cardPhone").value.trim();
+    if(!memberCode||!phone)return;
+    loginBtn.disabled=true;loginBtn.textContent=t('card.loading');setMessage('card.loading');
+    try{
+      const response=await fetch('/api/member-card',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({memberCode,phone}),cache:'no-store',credentials:'same-origin'});
+      const data=await response.json().catch(()=>({}));
+      if(!response.ok){setMessage(response.status===503?'card.unavailable':'card.invalid');return;}
+      const m=data.member||{},s=data.subscription||{},v=data.visits||{};
+      const code=String(m.barcodeValue||m.memberCode||memberCode).slice(0,80);
+      $("#cardFullName").textContent=String(m.fullName||'—');$("#cardCodeText").textContent=code;
+      $("#cardTotal").textContent=Number.isFinite(Number(v.total))?Number(v.total):'—';
+      $("#cardUsed").textContent=Number.isFinite(Number(v.used))?Number(v.used):'—';
+      $("#cardRemaining").textContent=Number.isFinite(Number(v.remaining))?Number(v.remaining):'—';
+      $("#cardPlan").textContent=String(s.planName||'—');$("#cardExpiry").textContent=formatDate(s.endDate);
+      const status=String(s.status||'unknown');currentCardStatus=status;currentCardExpiry=s.endDate||'';$("#cardStatus").textContent=status==='active'?t('card.active'):status==='expired'?t('card.expired'):status==='future'?t('card.future'):t('card.unknown');
+      if(window.JsBarcode){try{JsBarcode('#memberBarcode',code,{format:'CODE128',lineColor:'#111111',background:'#ffffff',width:2,height:56,margin:0,displayValue:false})}catch(e){$("#memberBarcode").replaceChildren()}}
+      form.hidden=true;card.hidden=false;setMessage('card.active',true);
+    }catch(error){setMessage('card.unavailable')}
+    finally{loginBtn.disabled=false;loginBtn.textContent=t('card.signIn')}
+  });
+  $("#cardSignOut").addEventListener('click',hideCard);
 })();

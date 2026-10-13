@@ -202,31 +202,32 @@ body.glow-active .interactive-glow{opacity:1}
 .slot.now{outline:2px solid var(--bone);outline-offset:3px}
 @media(max-width:760px){.hours-row{grid-template-columns:1fr;gap:12px}}
 
-/* calorie calculator */
-.calc-btn{padding:9px 18px;background:var(--red);border:0;color:#fff;font-family:var(--d);font-size:16px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;position:relative;overflow:hidden;isolation:isolate;transition:color .3s;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}
-.calc-btn:after{content:"";position:absolute;inset:0;background:var(--bone);transform:translateY(101%);transition:transform .4s var(--ease);z-index:-1}.calc-btn:hover{color:var(--ink)}.calc-btn:hover:after{transform:none}
-.rtl .calc-btn{font-family:var(--ar);font-size:13px;letter-spacing:0}
-.calc-box{width:min(660px,100%)}
-.calc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
-.seg button{padding:13px;background:var(--ink);border:1px solid var(--line);font-family:var(--d);font-size:18px;font-weight:700;letter-spacing:.14em;transition:.3s}.rtl .seg button{font-family:var(--ar);font-size:14px;letter-spacing:0}
-.seg button:hover{border-color:var(--red)}.seg button.on{background:var(--red);border-color:var(--red);color:#fff}
-.range-row{display:flex;align-items:center;gap:16px;margin-top:8px}.range-row b{min-width:42px;text-align:center;font-family:var(--d);font-size:34px;line-height:1;color:var(--bone)}
-.modal-box input.calc-range{padding:0;margin:0;border:0;background:none;accent-color:var(--red);height:28px;flex:1}
-.calc-result{margin-top:26px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding-top:24px;border-top:1px dashed var(--line)}
-.calc-result[hidden]{display:none}
-.rcard{padding:18px 16px;display:flex;flex-direction:column;gap:2px;border:1px solid var(--line);background:var(--ink);animation:rin .7s var(--ease) both;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)}
-.rcard.c{animation-delay:.1s;background:var(--red);border-color:var(--red)}.rcard.b{animation-delay:.2s;background:var(--bone);color:var(--ink)}
-@keyframes rin{from{opacity:0;transform:translateY(24px)}}
-.rcard span{font-family:var(--d);font-size:15px;font-weight:700;letter-spacing:.18em}.rtl .rcard span{font-family:var(--ar);font-size:13px;letter-spacing:0}
-.rcard b{font-family:var(--d);font-size:clamp(40px,7vw,58px);font-weight:900;line-height:1}
-.rcard small{font-size:13px;opacity:.75}.rcard.m span,.rcard.m small{color:var(--mut)}
-.calc-unit{grid-column:1/-1;margin:2px 0 0;text-align:center;font-family:var(--d);letter-spacing:.2em;font-size:14px;color:var(--mut)}.rtl .calc-unit{font-family:var(--ar);letter-spacing:0}
-.calc-note{grid-column:1/-1;margin:0;font-size:12px;line-height:1.7;color:#7d796f}
-@media(max-width:560px){.calc-grid,.calc-result{grid-template-columns:1fr}.calc-grid{gap:0}.calc-btn{padding:8px 12px;font-size:13px}.rtl .calc-btn{font-size:12px}}
 @media(max-width:1100px){.main-nav{gap:18px}.main-nav a{font-size:15px;letter-spacing:.1em}}
 @media(max-width:960px){
 .site-header{height:68px;grid-template-columns:70px 1fr auto}.brand img{width:64px;height:50px}.menu-btn{display:block}
 .main-nav{position:absolute;top:68px;inset-inline:14px;flex-direction:column;gap:0;padding:10px;background:rgba(10,10,10,.97);border:1px solid var(--line);opacity:0;visibility:hidden;transform:translateY(-10px);transition:.3s}
 .main-nav.open{opacity:1;visibility:visible;transform:none}.main-nav a{padding:14px 12px;border-bottom:1px solid var(--line);font-size:20px}.main-nav a:last-child{border:0}
 .header-actions{justify-self:end;gap:8px}}
+
+/* ---------- My Card popup modal ---------- */
+.my-card-section{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;padding:clamp(12px,3vw,34px);margin:0;width:100%;height:100dvh;overflow-y:auto;background:rgba(0,0,0,.84);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.my-card-section.open{display:flex}
+.member-card-modal-panel{position:relative;width:min(1040px,100%);max-height:calc(100dvh - 32px);overflow-y:auto;padding:clamp(20px,3vw,38px);background:radial-gradient(ellipse at 75% 15%,rgba(225,6,19,.18),transparent 48%),#0a0a0a;border:1px solid rgba(225,6,19,.55);box-shadow:0 25px 100px rgba(0,0,0,.7)}
+.member-card-close{display:block;margin:0 0 16px auto;padding:10px 15px;border:1px solid rgba(255,255,255,.25);background:#e10613;color:#fff;font:700 12px var(--d);cursor:pointer}
+.rtl .member-card-close{margin:0 auto 16px 0;font-family:var(--ar);font-size:14px}
+.my-card-section .section-head{margin-bottom:24px}
+.member-portal{display:grid;grid-template-columns:minmax(260px,390px) minmax(300px,1fr);gap:clamp(20px,3vw,36px);align-items:start}
+.member-login{padding:clamp(20px,3vw,30px);border:1px solid var(--line);background:rgba(20,20,20,.7)}
+.member-login label{display:block;margin-bottom:18px}.member-login label>span,.digital-member-card span{display:block;font-family:var(--d);font-size:13px;letter-spacing:.13em;color:var(--mut);font-weight:700;margin-bottom:8px}.rtl .member-login label>span,.rtl .digital-member-card span{font-family:var(--ar);letter-spacing:0;font-size:13px}
+.member-login input{width:100%;min-height:52px;padding:12px 14px;background:#090909;border:1px solid rgba(239,236,228,.2);outline:none;color:#fff}.member-login input:focus{border-color:var(--red)}.member-login input::placeholder{color:#6c6963}
+.card-message{min-height:24px;margin:12px 0 0;color:#ff727a;font-size:14px}.card-message.success{color:#a4e6b2}.card-help{font-size:13px;color:var(--mut);margin:8px 0 0}
+.digital-member-card{padding:clamp(20px,2.5vw,30px);color:#fff;background:linear-gradient(135deg,#1c1c1c 0%,#080808 62%,#31080b 100%);border:1px solid rgba(225,6,19,.65);box-shadow:0 20px 70px rgba(0,0,0,.35);position:relative;overflow:hidden;min-width:0}.digital-member-card[hidden]{display:none}.digital-member-card:after{content:'AK';position:absolute;right:12px;top:48px;font-family:var(--d);font-size:clamp(100px,16vw,190px);font-weight:900;color:rgba(255,255,255,.035);line-height:1;pointer-events:none}.rtl .digital-member-card:after{right:auto;left:12px}
+.digital-card-top,.member-card-footer{display:flex;justify-content:space-between;align-items:center;gap:16px}.digital-card-top img{object-fit:contain}.member-card-tag{color:#ff5963!important;font-size:12px!important;text-align:end}.rtl .member-card-tag{text-align:start}.digital-card-name{margin:24px 0 18px}.digital-card-name h3{font-size:clamp(23px,3vw,36px);margin:0;overflow-wrap:anywhere}.digital-card-code{background:#fff;padding:12px 16px;text-align:center;position:relative;z-index:1}.digital-card-code svg{display:block;width:100%;height:72px;max-width:430px;margin:0 auto}.digital-card-code span{color:#111!important;font-family:monospace!important;font-size:13px!important;letter-spacing:.1em!important;margin:2px 0 0!important}
+.member-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:22px 0}.member-stats>div{padding:14px 10px;background:rgba(255,255,255,.055);border-top:2px solid var(--red);min-width:0}.member-stats span{font-size:10px!important;line-height:1.4}.member-stats strong{font-family:var(--d);font-size:clamp(28px,4vw,42px);line-height:1.1}.member-card-footer{border-top:1px solid var(--line);padding-top:18px;flex-wrap:wrap;margin-bottom:22px}.member-card-footer>div{min-width:100px}.member-card-footer b{display:block;font-size:14px;overflow-wrap:anywhere}.member-status{padding:5px 9px;background:var(--red);color:white!important;font-size:11px!important;margin:0!important}.member-portal .btn-outline{border-color:rgba(255,255,255,.22);color:#fff}
+@media(max-width:800px){.my-card-section{padding:8px}.member-card-modal-panel{max-height:calc(100dvh - 16px);padding:18px 14px}.member-portal{grid-template-columns:1fr}.digital-member-card{max-width:100%}.member-stats{gap:6px}.member-stats>div{padding:12px 8px}.member-stats span{font-size:9px!important}}
+
+/* My Card is the primary red header action, replacing the calorie calculator shortcut. */
+.my-card-nav{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 17px;background:#e10613!important;color:#fff!important;border:1px solid #ff343f!important;font-family:var(--d);font-size:13px;font-weight:900;letter-spacing:.08em;text-decoration:none;white-space:nowrap;box-shadow:0 5px 22px rgba(225,6,19,.28);transition:background .2s,transform .2s,box-shadow .2s}
+.my-card-nav:hover,.my-card-nav:focus-visible{background:#ff1c2a!important;transform:translateY(-1px);box-shadow:0 8px 28px rgba(225,6,19,.42);outline:none}
+.rtl .my-card-nav{font-family:var(--ar);letter-spacing:0;font-size:15px}
+@media(max-width:960px){.header-actions .my-card-nav{min-height:38px;padding:8px 11px;font-size:12px}.rtl .header-actions .my-card-nav{font-size:13px}}
