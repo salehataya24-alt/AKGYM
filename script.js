@@ -135,10 +135,10 @@ const price=4000,months=$("#months"),total=$("#priceTotal"),duration=$("#duratio
 
 const translations={ar:{"nav.explore":"استكشف","nav.offers":"العروض","nav.coaches":"الكوتشات","nav.contact":"تواصل معنا","nav.membership":"الاشتراك","hero.quote":"الجسم يحقق ما يؤمن به العقل","hero.powered":"بدعم من","hero.cta":"استكشف النادي","explore.eyebrow":"النادي","explore.title":"استكشف النادي","explore.text":"ادخل إلى AKGYM واستكشف صالة التدريب ومنطقة الكارديو وغرف تبديل الملابس وكل تفاصيل النادي.","offers.eyebrow":"العروض الحالية","offers.title":"العروض الحالية","offers.tag":"عرض الطلاب","offers.heading":"خصم 10% لطلاب الجامعات","offers.description":"اختر جامعتك للاستفادة من العرض.","offers.open":"عرض التفاصيل","coaches.eyebrow":"الفريق","coaches.title":"الكوتشات","coaches.text":"تعرف على فريق الكوتشات وتواصل مع الكوتش مباشرة عبر AKGYM.","membership.eyebrow":"انضم إلى AKGYM","membership.title":"الاشتراك","membership.text":"اختر مدة اشتراكك. سعر الشهر الحالي هو 4,000 ليرة سورية.","membership.note":"مدة مرنة · التسجيل مباشرة عبر واتساب","membership.duration":"مدة الاشتراك","membership.join":"اشترك الآن","contact.eyebrow":"موقعنا","contact.title":"تواصل معنا","contact.locationTitle":"الموقع","contact.location":"دمشق، ركن الدين، قرب شارع برنية.","contact.whatsappTitle":"واتساب","contact.instagramTitle":"إنستغرام","contact.facebookTitle":"فيسبوك","contact.complaintsTitle":"الشكاوى","contact.map":"افتح في خرائط Google ←","footer.home":"الرئيسية","footer.contact":"تواصل معنا","footer.privacy":"سياسة الخصوصية","footer.terms":"الشروط والأحكام","footer.rights":"جميع الحقوق محفوظة.","offerModal.eyebrow":"عرض خاص","offerModal.title":"خصم 10% لطلاب الجامعات","offerModal.text":"حسم 10 بالمئة لطلاب الجامعات التالية:","offerModal.select":"اختر الجامعة","offerModal.use":"استفد من العرض","coachModal.label":"كوتش","coachModal.contact":"تواصل مع الكوتش","joinModal.eyebrow":"طلب اشتراك","joinModal.title":"الانضمام إلى AKGYM","joinModal.name":"الاسم الكامل","joinModal.phone":"رقم الهاتف","joinModal.duration":"مدة الاشتراك","joinModal.send":"إرسال الطلب عبر واتساب"},en:{"nav.explore":"Explore","nav.offers":"Offers","nav.coaches":"Coaches","nav.contact":"Contact","nav.membership":"Membership","hero.quote":"THE BODY ACHIEVES WHAT THE MIND BELIEVES","hero.powered":"POWERED BY","hero.cta":"EXPLORE THE GYM","explore.eyebrow":"THE FACILITY","explore.title":"EXPLORE THE GYM","explore.text":"Step inside AKGYM. Explore the training floor, cardio zone, changing rooms and every detail of the club.","offers.eyebrow":"CURRENT OFFERS","offers.title":"CURRENT OFFERS","offers.tag":"STUDENT OFFER","offers.heading":"10% OFF FOR UNIVERSITY STUDENTS","offers.description":"Choose your university to verify the offer.","offers.open":"VIEW OFFER","coaches.eyebrow":"THE TEAM","coaches.title":"OUR COACHES","coaches.text":"Meet the team and contact your coach directly through AKGYM.","membership.eyebrow":"JOIN AKGYM","membership.title":"MEMBERSHIP","membership.text":"Choose your membership duration. The monthly price is currently 4,000 SYP.","membership.note":"Flexible duration · Direct registration via WhatsApp","membership.duration":"MEMBERSHIP DURATION","membership.join":"JOIN NOW","contact.eyebrow":"FIND US","contact.title":"CONTACT US","contact.locationTitle":"LOCATION","contact.location":"Damascus, Rukn Al-Din, near Barniya Street.","contact.whatsappTitle":"WHATSAPP","contact.instagramTitle":"INSTAGRAM","contact.facebookTitle":"FACEBOOK","contact.complaintsTitle":"COMPLAINTS","contact.map":"OPEN IN GOOGLE MAPS →","footer.home":"Home","footer.contact":"Contact","footer.privacy":"Privacy Policy","footer.terms":"Terms & Conditions","footer.rights":"All rights reserved.","offerModal.eyebrow":"SPECIAL OFFER","offerModal.title":"10% OFF FOR UNIVERSITY STUDENTS","offerModal.text":"10% discount for students of the following universities:","offerModal.select":"SELECT UNIVERSITY","offerModal.use":"USE THIS OFFER","coachModal.label":"COACH","coachModal.contact":"CONTACT COACH","joinModal.eyebrow":"MEMBERSHIP REQUEST","joinModal.title":"JOIN AKGYM","joinModal.name":"FULL NAME","joinModal.phone":"PHONE NUMBER","joinModal.duration":"MEMBERSHIP DURATION","joinModal.send":"SEND REQUEST ON WHATSAPP"}};
 Object.assign(translations.ar,{
- "nav.myCard":"بطاقتي","card.eyebrow":"بوابة المشتركين","card.title":"بطاقتي","card.intro":"ادخل رقم العضوية ورقم الموبايل المسجّل لدى النادي لعرض بطاقتك وبيانات الزيارات.","card.memberCode":"رقم العضوية","card.phone":"رقم الموبايل","card.signIn":"عرض بطاقتي","card.help":"استخدم رقم الموبايل المسجّل لدى النادي. إذا لم يعمل، راجع الاستقبال.","card.digital":"بطاقة عضوية إلكترونية","card.memberName":"اسم المشترك","card.total":"إجمالي الجلسات","card.used":"الجلسات المستهلكة","card.remaining":"الجلسات المتبقية","card.plan":"الاشتراك","card.expiry":"تاريخ الانتهاء","card.signOut":"تسجيل الخروج","card.close":"إغلاق ✕","card.loading":"عم نتحقق من بياناتك…","card.invalid":"تعذر التحقق. تأكد من رقم العضوية ورقم الموبايل المسجّل.","card.unavailable":"خدمة البطاقة الإلكترونية غير مفعّلة حالياً. يرجى مراجعة الاستقبال.","card.active":"فعّال","card.expired":"منتهي","card.future":"لم يبدأ بعد","card.unknown":"غير متاح"
+ "nav.myCard":"بطاقتي","card.eyebrow":"بوابة المشتركين","card.title":"بطاقتي","card.intro":"ادخل رقم العضوية ورقم الموبايل المسجّل لدى النادي لعرض بطاقتك وبيانات الزيارات.","card.memberCode":"رقم العضوية أو الرقم الوطني","card.phone":"رقم الموبايل","card.signIn":"عرض بطاقتي","card.help":"استخدم رقم الموبايل المسجّل لدى النادي. إذا لم يعمل، راجع الاستقبال.","card.digital":"بطاقة عضوية إلكترونية","card.memberName":"اسم المشترك","card.total":"إجمالي الجلسات","card.used":"مرات الحضور المسجلة","card.remaining":"الجلسات المتبقية","card.plan":"الاشتراك","card.expiry":"تاريخ الانتهاء","card.signOut":"تسجيل الخروج","card.save":"حفظ رمز QR (صورة)","card.print":"طباعة البطاقة","card.close":"إغلاق ✕","card.loading":"عم نتحقق من بياناتك…","card.invalid":"تعذر التحقق. تأكد من رقم العضوية ورقم الموبايل المسجّل.","card.unavailable":"خدمة البطاقة الإلكترونية غير مفعّلة حالياً. يرجى مراجعة الاستقبال.","card.active":"فعّال","card.expired":"منتهي","card.future":"لم يبدأ بعد","card.unknown":"غير متاح"
 });
 Object.assign(translations.en,{
- "nav.myCard":"My Card","card.eyebrow":"MEMBER PORTAL","card.title":"MY CARD","card.intro":"Enter your member code and the mobile number registered with the club to view your card and visit totals.","card.memberCode":"MEMBER CODE","card.phone":"MOBILE NUMBER","card.signIn":"VIEW MY CARD","card.help":"Use the mobile number registered with the club. If it does not work, contact reception.","card.digital":"DIGITAL MEMBER CARD","card.memberName":"MEMBER NAME","card.total":"TOTAL VISITS","card.used":"VISITS USED","card.remaining":"VISITS LEFT","card.plan":"MEMBERSHIP","card.expiry":"EXPIRES","card.signOut":"SIGN OUT","card.close":"CLOSE ✕","card.loading":"Checking your membership…","card.invalid":"Verification failed. Check your member code and registered mobile number.","card.unavailable":"The online card service is not activated yet. Please contact reception.","card.active":"Active","card.expired":"Expired","card.future":"Not started","card.unknown":"Unavailable"
+ "nav.myCard":"My Card","card.eyebrow":"MEMBER PORTAL","card.title":"MY CARD","card.intro":"Enter your member code and the mobile number registered with the club to view your card and visit totals.","card.memberCode":"MEMBER CODE / NATIONAL ID","card.phone":"MOBILE NUMBER","card.signIn":"VIEW MY CARD","card.help":"Use the mobile number registered with the club. If it does not work, contact reception.","card.digital":"DIGITAL MEMBER CARD","card.memberName":"MEMBER NAME","card.total":"TOTAL VISITS","card.used":"RECORDED CHECK-INS","card.remaining":"VISITS LEFT","card.plan":"MEMBERSHIP","card.expiry":"EXPIRES","card.signOut":"SIGN OUT","card.save":"SAVE QR CODE (PNG)","card.print":"PRINT","card.close":"CLOSE ✕","card.loading":"Checking your membership…","card.invalid":"Verification failed. Check your member code and registered mobile number.","card.unavailable":"The online card service is not activated yet. Please contact reception.","card.active":"Active","card.expired":"Expired","card.future":"Not started","card.unknown":"Unavailable"
 });
 let lang='en';
 function applyLanguage(){document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.body.classList.toggle('rtl',lang==='ar');$("#langBtn").textContent=lang==='ar'?'English':'العربية';$$('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(translations[lang][k])el.textContent=translations[lang][k]});const nav=$('#mainNav');if(nav){nav.querySelectorAll('a').forEach(a=>{a.style.animation='none'});void nav.offsetWidth;if(nav.querySelectorAll('a').length)nav.querySelectorAll('a').forEach(a=>{a.style.animation=''});}updatePrice();if(window.__akCardRefreshLanguage)window.__akCardRefreshLanguage()}
@@ -278,7 +278,7 @@ loadPublicOffers();
   const formatDate=value=>{if(!value)return t('card.unknown');const d=new Date(`${String(value).slice(0,10)}T12:00:00`);if(Number.isNaN(d.getTime()))return String(value);return new Intl.DateTimeFormat(lang==='ar'?'ar-SY':'en-GB',{year:'numeric',month:'short',day:'numeric'}).format(d)};
   let currentCardStatus='unknown', currentCardExpiry='';
   window.__akCardRefreshLanguage=()=>{if(!card.hidden){$("#cardStatus").textContent=t(currentCardStatus==='active'?'card.active':currentCardStatus==='expired'?'card.expired':currentCardStatus==='future'?'card.future':'card.unknown');$("#cardExpiry").textContent=formatDate(currentCardExpiry);}};
-  const hideCard=()=>{card.hidden=true;form.hidden=false;form.reset();msg.textContent='';msg.classList.remove('success');if(window.JsBarcode)try{JsBarcode('#memberBarcode','',{displayValue:false})}catch(e){}};
+  const hideCard=()=>{card.hidden=true;form.hidden=false;form.reset();msg.textContent='';msg.classList.remove('success');if(window.AKQR)try{AKQR('#memberBarcode','')}catch(e){}};
   form.addEventListener('submit',async e=>{
     e.preventDefault();
     const memberCode=$("#cardMemberCode").value.trim(),phone=$("#cardPhone").value.trim();
@@ -291,15 +291,87 @@ loadPublicOffers();
       const m=data.member||{},s=data.subscription||{},v=data.visits||{};
       const code=String(m.barcodeValue||m.memberCode||memberCode).slice(0,80);
       $("#cardFullName").textContent=String(m.fullName||'—');$("#cardCodeText").textContent=code;
-      $("#cardTotal").textContent=Number.isFinite(Number(v.total))?Number(v.total):'—';
-      $("#cardUsed").textContent=Number.isFinite(Number(v.used))?Number(v.used):'—';
-      $("#cardRemaining").textContent=Number.isFinite(Number(v.remaining))?Number(v.remaining):'—';
+      $("#cardTotal").textContent=v.total!==null&&v.total!==undefined&&Number.isFinite(Number(v.total))?Number(v.total):'—';
+      $("#cardUsed").textContent=v.used!==null&&v.used!==undefined&&Number.isFinite(Number(v.used))?Number(v.used):'—';
+      $("#cardRemaining").textContent=v.remaining!==null&&v.remaining!==undefined&&Number.isFinite(Number(v.remaining))?Number(v.remaining):'—';
       $("#cardPlan").textContent=String(s.planName||'—');$("#cardExpiry").textContent=formatDate(s.endDate);
       const status=String(s.status||'unknown');currentCardStatus=status;currentCardExpiry=s.endDate||'';$("#cardStatus").textContent=status==='active'?t('card.active'):status==='expired'?t('card.expired'):status==='future'?t('card.future'):t('card.unknown');
-      if(window.JsBarcode){try{JsBarcode('#memberBarcode',code,{format:'CODE128',lineColor:'#111111',background:'#ffffff',width:2,height:56,margin:0,displayValue:false})}catch(e){$("#memberBarcode").replaceChildren()}}
+      if(window.AKQR){try{AKQR('#memberBarcode',code,{cell:4,margin:2})}catch(e){$("#memberBarcode").replaceChildren()}}
       form.hidden=true;card.hidden=false;setMessage('card.active',true);
     }catch(error){setMessage('card.unavailable')}
     finally{loginBtn.disabled=false;loginBtn.textContent=t('card.signIn')}
   });
   $("#cardSignOut").addEventListener('click',hideCard);
+
+  // ===== حفظ / طباعة الباركود =====
+  const cardInfo=()=>{
+    const s=$("#memberBarcode");
+    let svgHtml='';
+    if(s){const c=s.cloneNode(true);const vb=(s.getAttribute('viewBox')||'0 0 300 74').split(/\s+/).map(Number);c.setAttribute('width',vb[2]||300);c.setAttribute('height',vb[3]||74);c.removeAttribute('style');svgHtml=c.outerHTML;}
+    return {
+      svgHtml,
+      code:($("#cardCodeText")?.textContent||'').trim(),
+      name:($("#cardFullName")?.textContent||'').trim(),
+      plan:($("#cardPlan")?.textContent||'').trim(),
+      expiry:($("#cardExpiry")?.textContent||'').trim(),
+      total:($("#cardTotal")?.textContent||'').trim(),
+      used:($("#cardUsed")?.textContent||'').trim(),
+      remaining:($("#cardRemaining")?.textContent||'').trim(),
+    };
+  };
+  const rasterize=()=>new Promise(resolve=>{
+    const info=cardInfo();
+    if(!info.svgHtml||!info.code)return resolve(null);
+    const W=920,H=560,S=2;
+    const canvas=document.createElement('canvas');canvas.width=W*S;canvas.height=H*S;
+    const ctx=canvas.getContext('2d');ctx.scale(S,S);
+    ctx.fillStyle='#0b0b0b';ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='#e10613';ctx.fillRect(0,0,W,10);
+    ctx.direction='rtl';
+    ctx.textAlign='center';ctx.fillStyle='#ffffff';
+    ctx.font='bold 40px system-ui,sans-serif';ctx.fillText('AKGYM',W/2,86);
+    ctx.font='bold 44px system-ui,sans-serif';ctx.fillText(info.name||'—',W/2,158);
+    ctx.font='18px system-ui,sans-serif';ctx.fillStyle='#c9c9c9';ctx.fillText('بطاقة عضوية إلكترونية — MEMBER CARD',W/2,196);
+    ctx.fillStyle='#ffffff';ctx.fillRect(60,232,W-120,180);
+    const img=new Image();
+    img.onload=()=>{
+      const bw=W-160,bh=130,ix=80,iy=252;
+      const ratio=Math.min(bw/img.width,bh/img.height);
+      const dw=img.width*ratio,dh=img.height*ratio;
+      ctx.drawImage(img,ix+(bw-dw)/2,iy+(bh-dh)/2,dw,dh);
+      ctx.fillStyle='#111';ctx.font='bold 22px monospace';ctx.fillText(info.code,W/2,398);
+      ctx.textAlign='right';ctx.fillStyle='#e9e9e9';ctx.font='20px system-ui,sans-serif';
+      ctx.fillText('الاشتراك: '+(info.plan||'—'),W-70,470);
+      ctx.fillText('تاريخ الانتهاء: '+(info.expiry||'—'),W-70,502);
+      ctx.textAlign='left';
+      ctx.fillText('الجلسات: '+(info.used||'—')+' / '+(info.total||'—')+'   ·   المتبقية: '+(info.remaining||'—'),70,470);
+      ctx.fillStyle='#8a8a8a';ctx.font='16px system-ui,sans-serif';ctx.fillText('arakgym • AKGYM',70,528);
+      resolve(canvas);
+    };
+    img.onerror=()=>resolve(null);
+    img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<?xml version="1.0" encoding="UTF-8"?>'+info.svgHtml);
+  });
+  const saveBtn=$("#cardSave");
+  if(saveBtn)saveBtn.addEventListener('click',async()=>{
+    const canvas=await rasterize();
+    if(!canvas)return;
+    const code=(cardInfo().code||'member').replace(/[^\w-]+/g,'');
+    canvas.toBlob(blob=>{
+      if(!blob)return;
+      const link=document.createElement('a');
+      link.href=URL.createObjectURL(blob);
+      link.download='AKGYM-card-'+code+'.png';
+      document.body.appendChild(link);link.click();link.remove();
+      setTimeout(()=>URL.revokeObjectURL(link.href),4000);
+    },'image/png');
+  });
+  const printBtn=$("#cardPrint");
+  if(printBtn)printBtn.addEventListener('click',()=>{
+    const info=cardInfo();
+    if(!info.code)return;
+    const w=window.open('','_blank');
+    if(!w)return;
+    w.document.write('<!doctype html><html dir="rtl"><head><meta charset="utf-8"><title>بطاقة عضوية — '+safeText(info.code)+'</title><style>body{font-family:system-ui,Segoe UI,Tahoma,sans-serif;text-align:center;padding:30px;color:#111}h2{margin:6px 0}h3{margin:2px 0 18px}svg{max-width:100%;height:auto}.box{border:2px solid #111;border-radius:14px;padding:24px;max-width:640px;margin:0 auto}table{margin:16px auto 0;border-collapse:collapse}td,th{border:1px solid #ddd;padding:6px 14px;font-size:15px}</style></head><body><div class="box"><h2>AKGYM</h2><div>بطاقة عضوية إلكترونية</div><h3>'+safeText(info.name)+'</h3>'+info.svgHtml+'<table><tr><th>رقم العضوية</th><td>'+safeText(info.code)+'</td></tr><tr><th>الاشتراك</th><td>'+safeText(info.plan)+'</td></tr><tr><th>الانتهاء</th><td>'+safeText(info.expiry)+'</td></tr><tr><th>الجلسات</th><td>'+safeText(info.used)+' / '+safeText(info.total)+'</td></tr><tr><th>المتبقية</th><td>'+safeText(info.remaining)+'</td></tr></table></div><script>setTimeout(function(){window.print()},300)<\/script></body></html>');
+    w.document.close();
+  });
 })();
