@@ -92,7 +92,7 @@
       <div class="section-head"><span class="eyebrow" data-i18n="card.eyebrow">MEMBER PORTAL</span><h2 id="memberCardModalTitle" data-i18n="card.title">MY CARD</h2><p data-i18n="card.intro">Sign in with your member code and mobile number to view your membership card and visits.</p></div>
       <div class="member-portal">
         <form id="memberCardForm" class="member-login" autocomplete="on">
-          <label for="cardMemberCode"><span data-i18n="card.memberCode">MEMBER CODE</span><input id="cardMemberCode" name="memberCode" type="text" maxlength="40" required autocomplete="username" placeholder="AK-000123"></label>
+          <label for="cardMemberCode"><span data-i18n="card.memberCode">MEMBER CODE / NATIONAL ID</span><input id="cardMemberCode" name="memberCode" type="text" maxlength="40" required autocomplete="username" placeholder="AK-000123 / رقمك الوطني"></label>
           <label for="cardPhone"><span data-i18n="card.phone">MOBILE NUMBER</span><input id="cardPhone" name="phone" type="tel" maxlength="24" required autocomplete="tel" inputmode="tel" placeholder="09xxxxxxxx"></label>
           <button class="btn btn-primary full" id="cardLoginBtn" type="submit" data-i18n="card.signIn">VIEW MY CARD</button>
           <p class="card-message" id="cardMessage" role="status" aria-live="polite"></p>
@@ -101,13 +101,17 @@
         <article class="digital-member-card" id="digitalMemberCard" hidden>
           <div class="digital-card-top"><img src="assets/logo.webp" alt="AKGYM" width="64" height="48"><span class="member-card-tag" data-i18n="card.digital">DIGITAL MEMBER CARD</span></div>
           <div class="digital-card-name"><span data-i18n="card.memberName">MEMBER NAME</span><h3 id="cardFullName">—</h3></div>
-          <div class="digital-card-code"><svg id="memberBarcode" aria-label="Member barcode"></svg><span id="cardCodeText">—</span></div>
+          <div class="digital-card-code"><svg id="memberBarcode" aria-label="Member QR code"></svg><span id="cardCodeText">—</span></div>
           <div class="member-stats">
             <div><span data-i18n="card.total">TOTAL VISITS</span><strong id="cardTotal">—</strong></div>
             <div><span data-i18n="card.used">VISITS USED</span><strong id="cardUsed">—</strong></div>
             <div><span data-i18n="card.remaining">VISITS LEFT</span><strong id="cardRemaining">—</strong></div>
           </div>
           <div class="member-card-footer"><div><span data-i18n="card.plan">MEMBERSHIP</span><b id="cardPlan">—</b></div><div><span data-i18n="card.expiry">EXPIRES</span><b id="cardExpiry">—</b></div><span id="cardStatus" class="member-status"></span></div>
+          <div class="card-actions">
+            <button class="btn btn-outline full" id="cardSave" type="button" data-i18n="card.save">SAVE BARCODE (PNG)</button>
+            <button class="btn btn-outline full" id="cardPrint" type="button" data-i18n="card.print">PRINT</button>
+          </div>
           <button class="btn btn-outline full" id="cardSignOut" type="button" data-i18n="card.signOut">SIGN OUT</button>
         </article>
       </div>
@@ -156,7 +160,8 @@
   <div class="modal" id="infoModal" aria-hidden="true"><div class="modal-box"><button class="close" data-close type="button" aria-label="Close"><span class="close-x">×</span><span class="close-text">CLOSE / إغلاق</span></button><span class="eyebrow">AKGYM</span><h3 id="infoTitle"></h3><p id="infoText"></p></div></div>
 
 
-  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js" defer></script>
+  <script src="qrcode.js"></script>
+  <script src="qr.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
